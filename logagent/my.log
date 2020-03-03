@@ -1,0 +1,17 @@
+yigeren bihao xinjialei   dgdgerfe
+wo ye buhao  ewfew teteste
+drgdrgrdg
+nihao
+ta yehao
+yue ma
+en
+ffdgfdgr
+bihao
+
+
+
+//一共分为4张表，分别为
+//spider_home_url  高校爬虫入口表    维护3000高校名称及其对应入口的主url 
+//spider_data  爬取招聘相关的基本信息 具体有新增的后续增加
+//spider_data_noticeid  爬取招聘相关的内容基本信息
+//spider_rule  维护整个高校的爬取规则节点

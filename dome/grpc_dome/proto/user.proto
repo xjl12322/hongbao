@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package proto;
+
+
+message UserRequest{
+    string name = 1 ;
+
+}
+//响应的结构体
+message UserResponse {
+    int32 id = 1;
+    string name = 2;
+    int32 age = 3;
+    repeated string hobby=4;
+
+
+}
+
+
+//servece
+service UserInfoService{
+    rpc GetUserInfo (UserRequest)returns(UserResponse){}
+}
+

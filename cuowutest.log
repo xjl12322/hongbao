@@ -1,0 +1,6 @@
+[3036-03-03 10:21:25] [INFO][main.go  main-19] test2dfsefsef
+[3036-03-03 10:21:25] [WARNING][main.go  main-20] test3
+[3036-03-03 10:21:25] [ERROR][main.go  main-21] test4
+[3036-03-03 10:21:25] [ERROR][main.go  main-21] test4
+[3036-03-03 10:21:25] [FATAL][main.go  main-22] test5
+[3036-03-03 10:21:25] [FATAL][main.go  main-22] test5
