@@ -33,7 +33,7 @@ func (d *GiftDao)Get(id int)*models.LtGift  {
 
 func (d *GiftDao)GetAll()[]models.LtGift {
 	dataList := make([]models.LtGift,0)
-	err := d.engine.Asc("sys_status").Asc("displayorder").Find(dataList)
+	err := d.engine.Asc("sys_status").Asc("displayorder").Find(&dataList)
 
 	if err != nil{
 		log.Println("gift_dao.getAll error=",err)

@@ -21,6 +21,7 @@ require (
 	github.com/micro/go-micro v1.18.0
 	github.com/micro/go-plugins/registry/etcdv3 v0.0.0-20200119172437-4fe21aa238fd // indirect
 	github.com/nats-io/nats-server/v2 v2.1.4 // indirect
+	github.com/prometheus/common v0.6.0
 	github.com/satori/go.uuid v1.2.0
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20200122045848-3419fae592fc // indirect
 	go.etcd.io/etcd v3.3.18+incompatible

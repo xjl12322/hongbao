@@ -18,7 +18,7 @@ var DbMasterList = []DbConfig{
 		Port:      3306,
 		User:      "root",
 		Pwd:       "mysqlxjl12322@163.com",
-		Database:  "hongbao",
+		Database:  "choujiang",
 		IsRunning: true,
 	},
 }

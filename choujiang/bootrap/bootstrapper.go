@@ -1,7 +1,9 @@
 package bootrap
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"runtime"
 	"time"
 )
 
@@ -32,8 +34,11 @@ func (b *Bootstrapper) Configure(cs ...Configurator) {
 	}
 }
 func (b *Bootstrapper) Bootstrap()*Bootstrapper  {
-	b.Application.Static("public","./public")
-	b.Application.LoadHTMLGlob("./web/views")
+
+	_, file, _, ok := runtime.Caller(1)
+	fmt.Println(file,ok)
+	b.Application.Static("/public/","./public")
+	b.Application.LoadHTMLGlob("./web/views/**/*")
 	b.Application.Use(gin.Logger(),gin.Recovery())
 	return b
 }
