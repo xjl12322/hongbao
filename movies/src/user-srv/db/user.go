@@ -9,6 +9,7 @@ import (
 func SelectUserByEmail(email string) (*models.User, error) {
 	user := models.User{}
 	err := db.Get(&user, "SELECT * FROM user WHERE `email` = ?", email)
+
 	if err == sql.ErrNoRows {
 		return nil, nil
 	}

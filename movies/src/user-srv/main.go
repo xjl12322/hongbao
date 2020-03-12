@@ -38,7 +38,6 @@ func main()  {
 			logger.Info("Info", zap.Any("user-srv", "user-srv is start ..."))
 			db.Init(config.MysqlDSN)
 			pb.RegisterUserServiceExtHandler(service.Server(),handler.NewUserServiceExtHandler(),server.InternalHandler(true))
-
 		}),
 		micro.AfterStop(func() error {
 			logger.Info("Info", zap.Any("user-srv", "user-srv is stop ..."))

@@ -56,7 +56,7 @@ func (u *UserServiceExtHandler) LoginAccount(ctx context.Context, req *pb.LoginA
 	rsp.Email = user.Email
 	rsp.Phone = user.Phone
 	rsp.UserID = user.UserId
-	rsp.UserName = user.UserName
+	rsp.UserName = user.Name
 	return nil
 }
 // 密码重置
