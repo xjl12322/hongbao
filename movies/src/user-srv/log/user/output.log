@@ -16,3 +16,7 @@
 2020-03-12 19:25:35.015	info	log/log.go:20	Transport [http] Listening on [::]:49800
 2020-03-12 19:25:35.015	info	log/log.go:20	Broker [http] Connected to [::]:49801
 2020-03-12 19:25:35.044	info	log/log.go:20	Registry [mdns] Registering node: go.micro.srv.user-8ca430cb-2c06-4c83-9760-56e4965ecdd7
+2020-03-12 19:31:38.455	info	user-srv/main.go:38	Info	{"user-srv": "user-srv is start ..."}
+2020-03-12 19:31:38.479	info	log/log.go:20	Transport [http] Listening on [::]:50093
+2020-03-12 19:31:38.480	info	log/log.go:20	Broker [http] Connected to [::]:50094
+2020-03-12 19:31:38.530	info	log/log.go:20	Registry [mdns] Registering node: go.micro.srv.user-d649ab86-fa5f-4e0c-a9cc-b8001567b915

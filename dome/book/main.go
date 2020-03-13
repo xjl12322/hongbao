@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"hongbao/dome"
+	dome"hongbao/dome"
 
 	"net/http"
 )
