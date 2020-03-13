@@ -2,6 +2,7 @@ package log
 
 import (
 	"bytes"
+	"fmt"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -26,7 +27,13 @@ func Init(srvName string) *zap.Logger {
 
 // NewLogger 新建日志
 func NewLogger(srvName string) *zap.Logger {
-	directory := "E:\\goland\\gowork\\hongbao\\movies\\src\\user-srv"
+
+	dir, err := os.Getwd()
+	fmt.Println(dir)
+	if err !=nil{
+		panic(err)
+	}
+	directory := fmt.Sprintf("%s\\movies\\src\\user-srv",dir)
 	if len(directory) == 0 {
 		directory = path.Join("..", "log", srvName)
 	} else {

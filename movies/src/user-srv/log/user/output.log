@@ -1,0 +1,18 @@
+2020-03-12 16:26:28.596	info	user-srv/main.go:38	Info	{"user-srv": "user-srv is start ..."}
+2020-03-12 16:26:28.619	info	log/log.go:20	Transport [http] Listening on [::]:56960
+2020-03-12 16:26:28.619	info	log/log.go:20	Broker [http] Connected to [::]:56961
+2020-03-12 16:26:28.667	info	log/log.go:20	Registry [mdns] Registering node: go.micro.srv.user-c802e8e4-0ec1-4cb4-95ea-34a9dc6c28eb
+2020-03-12 18:11:56.596	info	log/log.go:20	Registry [mdns] Deregistering node: go.micro.srv.user-c802e8e4-0ec1-4cb4-95ea-34a9dc6c28eb
+2020-03-12 18:12:01.424	info	user-srv/main.go:38	Info	{"user-srv": "user-srv is start ..."}
+2020-03-12 18:12:01.449	info	log/log.go:20	Transport [http] Listening on [::]:61943
+2020-03-12 18:12:01.449	info	log/log.go:20	Broker [http] Connected to [::]:61944
+2020-03-12 18:12:01.479	info	log/log.go:20	Registry [mdns] Registering node: go.micro.srv.user-7a2dc262-d928-48d7-862c-127f80d08d3a
+2020-03-12 19:13:47.008	error	handler/handler.go:96	error	{"error": "Error 1054: Unknown column 'user_id' in 'where clause'"}
+2020-03-12 19:22:50.398	info	user-srv/main.go:38	Info	{"user-srv": "user-srv is start ..."}
+2020-03-12 19:22:50.423	info	log/log.go:20	Transport [http] Listening on [::]:49636
+2020-03-12 19:22:50.424	info	log/log.go:20	Broker [http] Connected to [::]:49637
+2020-03-12 19:22:50.457	info	log/log.go:20	Registry [mdns] Registering node: go.micro.srv.user-3588ec9d-5e15-4f70-9406-9e8e87af2e79
+2020-03-12 19:25:34.991	info	user-srv/main.go:38	Info	{"user-srv": "user-srv is start ..."}
+2020-03-12 19:25:35.015	info	log/log.go:20	Transport [http] Listening on [::]:49800
+2020-03-12 19:25:35.015	info	log/log.go:20	Broker [http] Connected to [::]:49801
+2020-03-12 19:25:35.044	info	log/log.go:20	Registry [mdns] Registering node: go.micro.srv.user-8ca430cb-2c06-4c83-9760-56e4965ecdd7

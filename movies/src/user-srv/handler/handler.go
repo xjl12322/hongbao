@@ -39,7 +39,7 @@ func (u *UserServiceExtHandler) RegistAccount(ctx context.Context, req *pb.Regis
 		u.logger.Error("error", zap.Error(err))
 		return errors.ErrorUserFailed
 	}
-	return nil
+	return errors.ErrorUserSuccess
 }
 //用户登录
 func (u *UserServiceExtHandler) LoginAccount(ctx context.Context, req *pb.LoginAccountReq, rsp *pb.LoginAccountRsp) error {
@@ -53,9 +53,9 @@ func (u *UserServiceExtHandler) LoginAccount(ctx context.Context, req *pb.LoginA
 	if user == nil {
 		return errors.ErrorUserLoginFailed
 	}
-	rsp.Email = user.Email
-	rsp.Phone = user.Phone
-	rsp.UserID = user.UserId
+	rsp.Email = user.Email.String
+	rsp.Phone = user.Phone.String
+	rsp.UserID = user.Id
 	rsp.UserName = user.Name
 	return nil
 }
