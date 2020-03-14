@@ -1,7 +1,9 @@
 package comm
 
 import (
+	"crypto/md5"
 	"fmt"
+
 	"hongbao/choujiang/models"
 	"log"
 	"net"
@@ -54,20 +56,54 @@ func GetLoginUser(request *http.Request) *models.ObjLoginuser{
 	loginuser.Now = now
 	loginuser.Ip = ClientIP(request)
 	loginuser.Sign = params.Get("sign")
-	if err != nil {
-		log.Println("fuc_web GetLoginUser Unmarshal ", err)
+	sign := createLoginuserSign(loginuser)
+	if sign != loginuser.Sign{
+		//log.Println("fuc_web GetLoginUser Unmarshal ", err)
+		log.Println("fuc_web getloginuser createloginusersign not signed", sign,loginuser.Sign)
 		return nil
 	}
+	//if err != nil {
+	//	log.Println("fuc_web GetLoginUser Unmarshal ", err)
+	//	return nil
+	//}
 	return loginuser
 }
 
+// 将登录的用户信息设置到cookie中
+func SetLoginuser(writer http.ResponseWriter, loginuser *models.ObjLoginuser) {
+	if loginuser == nil || loginuser.Uid <1{
+		c:= &http.Cookie{
+			Name:"lottery_loginuser",
+			Value:"",
+			Path:"/",
+			MaxAge:-1,
+		}
+		http.SetCookie(writer,c)
+		return
+	}
+	if loginuser.Sign == ""{
+		loginuser.Sign = createLoginuserSign(loginuser)
+	}
+	params := url.Values{}
+	params.Add("uid",strconv.Itoa(loginuser.Uid))
+	params.Add("username",loginuser.Username)
+	params.Add("now",strconv.Itoa(loginuser.Now))
+	params.Add("ip",loginuser.Ip)
+	params.Add("sign",loginuser.Sign)
+	c := &http.Cookie{
+		Name:"lottery_loginuser",
+		Value:params.Encode(),
+		Path:"/",
+	}
+	http.SetCookie(writer,c)
 
+}
 
 // 根据登录用户信息生成加密字符串
-func createLoginuserSign(loginuser *models.ObjLoginuser){
+func createLoginuserSign(loginuser *models.ObjLoginuser)string{
 	str := fmt.Sprintf("uid=%d&username=%s&secret=%s&now=%d",loginuser.Uid,loginuser.Username,loginuser.Now)
-	sign :=
-
+	sign := fmt.Sprintf("%x",md5.Sum([]byte(str)))
+	return sign
 }
 
 
