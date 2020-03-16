@@ -3,16 +3,16 @@ package models
 import (
 	"database/sql"
 	"fmt"
+	//"github.com/jmoiron/sqlx"
 	"html/template"
 	"strconv"
 	"time"
 
 	"github.com/jinzhu/gorm"
-	_ "github.com/mattn/go-sqlite3"
-	//_ "github.com/go-sql-driver/mysql"
+	//_ "github.com/mattn/go-sqlite3"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
-	"github.com/wangsongyan/wblog/system"
 )
 
 // I don't need soft delete,so I use customized BaseModel instead gorm.Model
@@ -130,9 +130,10 @@ type SmmsFile struct {
 
 var DB *gorm.DB
 
-func InitDB() (*gorm.DB, error) {
 
-	db, err := gorm.Open("sqlite3", system.GetConfiguration().DSN)
+
+func InitDB(dns string) (*gorm.DB, error) {
+	db, err := gorm.Open("mysql", dns)
 	//db, err := gorm.Open("mysql", "root:mysql@/wblog?charset=utf8&parseTime=True&loc=Asia/Shanghai")
 	if err == nil {
 		DB = db
@@ -141,9 +142,8 @@ func InitDB() (*gorm.DB, error) {
 		db.Model(&PostTag{}).AddUniqueIndex("uk_post_tag", "post_id", "tag_id")
 		return db, err
 	}
-	return nil, err
+	return nil,err
 }
-
 // Page
 func (page *Page) Insert() error {
 	return DB.Create(page).Error
@@ -248,6 +248,7 @@ func ListAllPost(tag string) ([]*Post, error) {
 func _listPost(tag string, published bool, pageIndex, pageSize int) ([]*Post, error) {
 	var posts []*Post
 	var err error
+
 	if len(tag) > 0 {
 		tagId, err := strconv.ParseUint(tag, 10, 64)
 		if err != nil {
@@ -275,9 +276,9 @@ func _listPost(tag string, published bool, pageIndex, pageSize int) ([]*Post, er
 	} else {
 		if published {
 			if pageIndex > 0 {
-				err = DB.Where("is_published = ?", true).Order("created_at desc").Limit(pageSize).Offset((pageIndex - 1) * pageSize).Find(&posts).Error
+				err = DB.Where("is_published = ?", 1).Order("created_at desc").Limit(pageSize).Offset((pageIndex - 1) * pageSize).Find(&posts).Error
 			} else {
-				err = DB.Where("is_published = ?", true).Order("created_at desc").Find(&posts).Error
+				err = DB.Where("is_published = ?", 1).Order("created_at desc").Find(&posts).Error
 			}
 		} else {
 			err = DB.Order("created_at desc").Find(&posts).Error

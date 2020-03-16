@@ -9,21 +9,27 @@ require (
 	github.com/gin-gonic/gin v1.5.0
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/go-xorm/xorm v0.7.9
+	github.com/go-yaml/yaml v2.1.0+incompatible
 	github.com/gogo/protobuf v1.3.1 // indirect
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
 	github.com/golang/protobuf v1.3.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0 // indirect
 	github.com/hpcloud/tail v1.0.0
 	github.com/iris-contrib/go.uuid v2.0.0+incompatible // indirect
+	github.com/jinzhu/gorm v1.9.12
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/kataras/iris v11.1.1+incompatible
+	github.com/mattn/go-sqlite3 v2.0.1+incompatible
 	github.com/micro/cli v0.2.0
 	github.com/micro/go-micro v1.18.0
 	github.com/micro/go-plugins/registry/etcdv3 v0.0.0-20200119172437-4fe21aa238fd // indirect
+	github.com/microcosm-cc/bluemonday v1.0.2
 	github.com/nats-io/nats-server/v2 v2.1.4 // indirect
 	github.com/prometheus/common v0.6.0
+	github.com/russross/blackfriday v1.5.2
 	github.com/satori/go.uuid v1.2.0
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20200122045848-3419fae592fc // indirect
+	github.com/wangsongyan/wblog v0.0.0-20190212134921-875ef9a6cda0
 	go.etcd.io/etcd v3.3.18+incompatible
 	go.uber.org/zap v1.13.0
 	google.golang.org/grpc v1.26.0
