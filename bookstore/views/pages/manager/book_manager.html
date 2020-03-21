@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>图书管理</title>
 <link type="text/css" rel="stylesheet" href="/static/css/style.css" >
+	<script src="/static/script/jquery-1.7.2.js"></script>
 </head>
 <body>
 	
@@ -11,7 +12,7 @@
 			<img class="logo_img" alt="" src="/static/img/logo.gif" >
 			<span class="wel_word">图书管理系统</span>
 			<div>
-				<a href="/getBooks">图书管理</a>
+				<a href="/getPageBooks">图书管理</a>
 				<a href="/">返回商城</a>
 			</div>
 	</div>
@@ -37,7 +38,6 @@
 				<td><a id="{{.Title}}" class="deleteBook" href="/deleteBook?bookId={{.ID}}">删除</a></td>
 			</tr>	
 			{{end}}
-
 			<tr>
 				<td></td>
 				<td></td>
@@ -45,7 +45,7 @@
 				<td></td>
 				<td></td>
 				<td></td>
-				<td><a href="/pages/manager/book_edit.html">添加图书</a></td>
+				<td><a href="/toUpdateBookPage">添加图书</a></td>
 			</tr>	
 		</table>
 
@@ -66,7 +66,7 @@
 				$("#sub").click(function(){
 					//获取输入的页码
 					var pageNo = $("#pn_input").val();
-					location = ""+pageNo
+					location = "/getPageBooks?pageNo="+pageNo
 				});
 			</script>
 		</div>
