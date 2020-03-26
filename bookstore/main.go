@@ -46,6 +46,14 @@ func main() {
 
 	//获取购物车信息
 	http.HandleFunc("/getCartInfo", controller.GetCartInfo)
+	//清空购物车
+	http.HandleFunc("/deleteCart", controller.DeleteCart)
+	//删除购物项
+	http.HandleFunc("/deleteCartItem", controller.DeleteCartItem)
+	//更新购物项
+	http.HandleFunc("/updateCartItem", controller.UpdateCartItem)
+	//去结账
+	http.HandleFunc("/checkout", controller.Checkout)
 
 	http.ListenAndServe(":8080", nil)
 
