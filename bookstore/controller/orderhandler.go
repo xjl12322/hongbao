@@ -65,3 +65,62 @@ func Checkout(w http.ResponseWriter, r *http.Request) {
 	//执行
 	t.Execute(w, session)
 }
+
+
+//GetOrders 获取所有订单
+func GetOrders(w http.ResponseWriter, r *http.Request) {
+	//调用dao中获取所有订单的函数
+	orders, _ := dao.GetOrders()
+	//解析模板
+	t := template.Must(template.ParseFiles("views/pages/order/order_manager.html"))
+	//执行
+	t.Execute(w, orders)
+}
+
+//GetOrderInfo 获取订单对应的订单项
+func GetOrderInfo(w http.ResponseWriter, r *http.Request) {
+	//获取订单号
+	orderID := r.FormValue("orderId")
+	//根据订单号调用dao中获取所有订单项的函数
+	orderItems, _ := dao.GetOrderItemsByOrderID(orderID)
+	//解析模板
+	t := template.Must(template.ParseFiles("views/pages/order/order_info.html"))
+	//执行
+	t.Execute(w, orderItems)
+}
+
+//GetMyOrders 获取我的订单
+func GetMyOrders(w http.ResponseWriter, r *http.Request) {
+	//获取session
+	_, session := dao.IsLogin(r)
+	//获取用户的id
+	userID := session.UserID
+	//调用dao中获取用户的所有订单的函数
+	orders, _ := dao.GetMyOrders(userID)
+	//将订单设置到session中
+	session.Orders = orders
+	//解析模板
+	t := template.Must(template.ParseFiles("views/pages/order/order.html"))
+	//执行
+	t.Execute(w, session)
+}
+
+//SendOrder 发货
+func SendOrder(w http.ResponseWriter, r *http.Request) {
+	//获取要发货的订单号
+	orderID := r.FormValue("orderId")
+	//调用dao中的更新订单状态的函数
+	dao.UpdateOrderState(orderID, 1)
+	//调用GetOrders函数再次查询一下所有的订单
+	GetOrders(w, r)
+}
+
+//TakeOrder 收货
+func TakeOrder(w http.ResponseWriter, r *http.Request) {
+	//获取要收货的订单号
+	orderID := r.FormValue("orderId")
+	//调用dao中的更新订单状态的函数
+	dao.UpdateOrderState(orderID, 2)
+	//调用获取我的订单的函数再次查询我的订单
+	GetMyOrders(w, r)
+}

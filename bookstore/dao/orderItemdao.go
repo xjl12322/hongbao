@@ -1,8 +1,8 @@
 package dao
 
 import (
-	"bookstore0612/model"
-	"bookstore0612/utils"
+	"hongbao/bookstore/model"
+	"hongbao/bookstore/utils"
 )
 
 //AddOrderItem 向数据库中插入订单项
