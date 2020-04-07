@@ -12,21 +12,21 @@ import (
 	"strings"
 )
 //优惠卷列表
-func GetUser(Ctx *gin.Context)  {
+func GetBlackIp(Ctx *gin.Context)  {
 
 	pages := Ctx.DefaultQuery("page","1")
 	page ,_:= strconv.Atoi(pages)
 	size := 3
 	pagePrev := ""
 	pageNext := ""
-	obj_ResultService := services.NewUserService()
+	obj_BlackipService := services.NewBlackipService()
 	//数据列表
-	datalist := obj_ResultService.GetAll(page,size)
+	datalist := obj_BlackipService.GetAll(page,size)
 	total := (page-1)+len(datalist)
 
 
 	if len(datalist)>=size{
-		total = int(obj_ResultService.CountAll())
+		total = int(obj_BlackipService.CountAll())
 		pageNext = fmt.Sprintf("%d",page+1)
 
 	}
@@ -48,7 +48,7 @@ func GetUser(Ctx *gin.Context)  {
 	return
 }
 //设置黑名单
-func GetBlack(Ctx *gin.Context) {
+func GetBlack2(Ctx *gin.Context) {
 	ids := Ctx.Query("id")
 	times := Ctx.DefaultQuery("time","0")
 	id ,_:= strconv.Atoi(ids)
@@ -56,11 +56,11 @@ func GetBlack(Ctx *gin.Context) {
 	if t>0{
 		t = t*86400+comm.NowUnix()
 	}
-	obj_ResultService := services.NewUserService()
-	obj_ResultService.Update(&models.LtUser{Id:id,Blacktime:t,SysUpdated:comm.NowUnix()},[]string{"blacktime"})
+	obj_BlackipService := services.NewBlackipService()
+	obj_BlackipService.Update(&models.LtBlackip{Id:id,Blacktime:t,SysUpdated:comm.NowUnix()},[]string{"blacktime"})
 
 
-	Ctx.Redirect(http.StatusMovedPermanently,"/admin/user")
+	Ctx.Redirect(http.StatusMovedPermanently,"/admin/blackip")
 
 
 

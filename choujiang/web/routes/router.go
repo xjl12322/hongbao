@@ -49,6 +49,12 @@ func InitRegister(app *bootrap.Bootstrapper){
 	result.POST("/delete",controllers.GetResultDelete)
 	result.POST("/cheat",controllers.GetResultCheat)
 	//result.GET("/gift/reset",controllers.GetReset)
+
+
+
+	user := admin.Group("/user")
+	user.GET("/",controllers.GetUser)
+	user.GET("/black",controllers.GetBlack)
 }
 
 

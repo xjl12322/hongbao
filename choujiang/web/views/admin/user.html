@@ -1,3 +1,6 @@
+{{define "admin/user.html"}}
+
+{{template "admin/admin_header.html"}}
 <div class="panel-heading">
     总共 {{.Total}} 条记录
     {{if .PagePrev ""}}<a href="/admin/user?page={{.PagePrev}}">上一页</a>{{end}}
@@ -43,3 +46,7 @@
     {{end}}
     </tbody>
 </table>
+
+
+{{template "admin/admin_footer.html"}}
+{{end}}
