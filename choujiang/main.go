@@ -10,7 +10,9 @@ import (
 
 func newApp() *bootrap.Bootstrapper {
 	app:= bootrap.New("111","222")
+
 	app.Bootstrap()
+
 	//app.Configure()
 	return app
 
@@ -20,6 +22,7 @@ func newApp() *bootrap.Bootstrapper {
 
 func main()  {
 	app := newApp()
+
 	routes.InitRegister(app)
 	app.Application.Run(fmt.Sprintf(":%d",8001))
 

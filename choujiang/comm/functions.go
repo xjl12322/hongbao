@@ -20,7 +20,15 @@ import (
 func NowUnix() int {
 	return int(time.Now().In(conf.SysTimeLocation).Unix())
 }
-
+//给膜版调用转换时间的方法
+func FromUnixtimeShort(t int)string {
+	dt := time.Unix(int64(t), int64(0))
+	return dt.Format(conf.SysTimeformShort)
+}
+func FromUnixtime(t int)string {
+	dt := time.Unix(int64(t), int64(0))
+	return dt.Format(conf.SysTimeform)
+}
 // 将unix时间戳格式化为yyyymmdd H:i:s格式字符串
 func FormatFromUnixTime(t int64) string {
 	if t > 0 {

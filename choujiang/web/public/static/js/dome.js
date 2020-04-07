@@ -24,7 +24,7 @@ function LuckyDo(wheel, type) {
                 }
             } else if (data.code == 101) {
                 alert(data.msg);
-                location.href = "/public/index.html";
+                location.href = "/public/contentx.html";
             } else if (data.code < 200) {
                 alert(data.msg);
             } else {

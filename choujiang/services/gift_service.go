@@ -21,7 +21,7 @@ type giftService struct {
 
 func NewGiftService() GiftService {
 	return &giftService{
-		dao:dao.NewGiftDao(datasource.InstanceDBMaster()),
+		dao:dao.NewGiftDao(datasource.InstanceDbMaster()),
 	}
 
 }

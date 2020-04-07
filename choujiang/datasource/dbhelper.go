@@ -15,7 +15,7 @@ import (
 var dbLock sync.Mutex
 var masterInstance *xorm.Engine
 
-func InstanceDBMaster() *xorm.Engine  {
+func InstanceDbMaster() *xorm.Engine  {
 	if masterInstance != nil{
 		return masterInstance
 	}
