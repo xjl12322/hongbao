@@ -8,7 +8,7 @@ import (
 
 func main() {
 	router := gin.Default()
-	dns := "root:mysqlxjl12322@163.com@tcp(152.136.43.225:3306)/bloger?parseTime=true"
+	dns := "root:mysqlxjl12322@163.com@tcp(152.136.43.225:3306)/bloger2?parseTime=true"
 	err := db.Init(dns)
 	if err != nil {
 		panic(err)
