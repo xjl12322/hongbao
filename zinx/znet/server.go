@@ -1,9 +1,11 @@
 package znet
 
 import (
+	"errors"
 	"fmt"
 	"hongbao/zinx/ziface"
 	"net"
+
 )
 
 //iserver 的接口实现，定义一个server的服务器模块
@@ -17,6 +19,18 @@ type Server struct {
 	//服务监听端口
 	Port int
 }
+
+//定义当前客户端所绑定的handler API  （目前handler是写死的好，后期优化用户自定义handle方法）
+func CallBackToClient(conn *net.TCPConn,data []byte,cnt int) error{
+	//回显业务
+	fmt.Println("[Conn handlerl] CallbackToclient...")
+	if _,err := conn.Write(data[:cnt]);err != nil{
+		fmt.Println("write back buf err=",err)
+		return errors.New("CallBackToClient error")
+	}
+	return nil
+}
+
 //初始化server
 func NewServer(name string)ziface.IServer {
 	s := &Server{
@@ -55,24 +69,14 @@ func (s *Server)Start()  {
 				fmt.Printf("Accept err :%s\n",err)
 				continue
 			}
-			//已经与客户端建立连接，做一些业务  比如做个512字节的回显业务
-			go func() {
-				for {
-					buf := make([]byte,512)
-					cnt,err := conn.Read(buf)
-					if err != nil{
-						fmt.Println("recv buf err",err)
-						continue
-					}
-					fmt.Printf("server send back: %s, cnt=%d\n",buf,cnt)
-					//回显功能
-					if _,err := conn.Write(buf[:cnt]);err != nil{
-						fmt.Println("write back buf err",err)
-						continue
-					}
+			var cid uint32
+			cid = 0
 
-				}
-			}()
+			dealConn := NewConnection(conn,cid,CallBackToClient)
+			cid ++
+			//启动当前业务处理
+			go dealConn.Start()
+
 		}
 
 

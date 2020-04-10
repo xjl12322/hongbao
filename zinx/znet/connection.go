@@ -21,7 +21,7 @@ type Connecttion struct {
 	ExitChan chan bool
 }
 //初始化链接方法
-func NewConnection(conn *net.TCPConn,connID uint32,callback_api ziface.HandleFunc)  {
+func NewConnection(conn *net.TCPConn,connID uint32,callback_api ziface.HandleFunc) ziface.IConnection  {
 	c := &Connecttion{
 		Conn:conn,
 		ConnID:connID,
@@ -30,6 +30,6 @@ func NewConnection(conn *net.TCPConn,connID uint32,callback_api ziface.HandleFun
 		ExitChan:make(chan bool),
 	}
 
-
+	return c
 
 }
