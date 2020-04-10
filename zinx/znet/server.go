@@ -1,7 +1,7 @@
 package znet
 
 import (
-	"golang.org/x/tools/go/ssa/interp/testdata/src/fmt"
+	"fmt"
 	"hongbao/zinx/ziface"
 	"net"
 )
@@ -30,28 +30,29 @@ func NewServer(name string)ziface.IServer {
 
 
 func (s *Server)Start()  {
-	fmt.Printf("[start] Server Listenner at IP :%s prot",s.IP,s.Port)
+	fmt.Printf("[start] Server Listenner at IP :%s prot:%d\n",s.IP,s.Port)
 	go func() {
 		// 1 获取一个tcp的 addr
 		addr,err := net.ResolveTCPAddr(s.IPVersion,fmt.Sprintf("%s:%d",s.IP,s.Port))
+
 		if err != nil{
-			fmt.Println("resolve tcp adds error:",err)
+			fmt.Println("resolve tcp adds error\n:",err)
 			return
 		}
 		// 2 监听服务器的地址
 		listenner,err := net.ListenTCP(s.IPVersion,addr)
 		if err != nil{
-			fmt.Printf("listen :%s err=%s",s.IPVersion,err)
+			fmt.Printf("listen :%s err=%s\n",s.IPVersion,err)
 			return
 		}
-		fmt.Printf("start zinx server succuss")
+		fmt.Printf("start zinx server succuss\n")
 
 		//3 阻塞的等待客户端连接，处理客户端的连接业务（读写）
 		for {
 			//如果客户端连接过来，阻塞并返回
 			conn,err := listenner.AcceptTCP()
 			if err != nil{
-				fmt.Printf("Accept err :%s",err)
+				fmt.Printf("Accept err :%s\n",err)
 				continue
 			}
 			//已经与客户端建立连接，做一些业务  比如做个512字节的回显业务
@@ -63,7 +64,7 @@ func (s *Server)Start()  {
 						fmt.Println("recv buf err",err)
 						continue
 					}
-
+					fmt.Printf("server send back: %s, cnt=%d\n",buf,cnt)
 					//回显功能
 					if _,err := conn.Write(buf[:cnt]);err != nil{
 						fmt.Println("write back buf err",err)
