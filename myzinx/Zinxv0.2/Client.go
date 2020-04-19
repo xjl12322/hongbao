@@ -19,7 +19,7 @@ func main() {
 
 	for {
 		//2 链接调用write写数据
-		_,err := conn.Write([]byte("ni hao"))
+		_,err := conn.Write([]byte("ni hao0.2"))
 		if err != nil{
 			fmt.Println("write conn err",err)
 			return

@@ -1,11 +1,9 @@
 package znet
 
 import (
-	"errors"
 	"fmt"
 	"hongbao/zinx/ziface"
 	"net"
-
 )
 
 //iserver 的接口实现，定义一个server的服务器模块
@@ -18,18 +16,28 @@ type Server struct {
 	IP string
 	//服务监听端口
 	Port int
+	//当前的Server添加一个router，server注册的链接对应的处理业务
+	Router ziface.IRouter
 }
 
 //定义当前客户端所绑定的handler API  （目前handler是写死的好，后期优化用户自定义handle方法）
-func CallBackToClient(conn *net.TCPConn,data []byte,cnt int) error{
-	//回显业务
-	fmt.Println("[Conn handlerl] CallbackToclient...")
-	if _,err := conn.Write(data[:cnt]);err != nil{
-		fmt.Println("write back buf err=",err)
-		return errors.New("CallBackToClient error")
-	}
-	return nil
+//func CallBackToClient(conn *net.TCPConn,data []byte,cnt int) error{
+//	//回显业务
+//	fmt.Println("[Conn handlerl] CallbackToclient...")
+//	if _,err := conn.Write(data[:cnt]);err != nil{
+//		fmt.Println("write back buf err=",err)
+//		return errors.New("CallBackToClient error")
+//	}
+//	return nil
+//}
+
+//路由功能：给当前的服务注册一个路由方法，供客户端的链接处理使用
+func (s *Server)AddRouter(router ziface.IRouter)()  {
+	s.Router = router
+	fmt.Println("Add Router Succ!")
+
 }
+
 
 //初始化server
 func NewServer(name string)ziface.IServer {
@@ -72,7 +80,7 @@ func (s *Server)Start()  {
 			var cid uint32
 			cid = 0
 
-			dealConn := NewConnection(conn,cid,CallBackToClient)
+			dealConn := NewConnection(conn,cid,s.Router)
 			cid ++
 			//启动当前业务处理
 			go dealConn.Start()
