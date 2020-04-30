@@ -1,0 +1,20 @@
+{{ define "signup.html" }}
+    {{template "header"}}
+    <link href="/static/css/login.css" rel="stylesheet">
+    </head>
+    <body>
+
+    <form class="form-signin" role="form" action="/signup_account" method="post">
+        <h2 class="form-signin-heading">
+            <i class="fa fa-comments-o">
+                luntanHome
+            </i>
+        </h2>
+        <div class="lead">注册新账户</div>
+        <input id="name" type="text" name="name" class="form-control" placeholder="Name" >
+        <input type="email" name="email" class="form-control" placeholder="Email address">
+        <input type="password" name="password" class="form-control" placeholder="Password">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">提交注册</button>
+    </form>
+
+{{ end }}
