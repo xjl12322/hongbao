@@ -11,31 +11,15 @@
             </div>
         </div>
 
-        {{ range .Posts }}
+        {{ range .post }}
             <div class="panel-body">
                 <span class="lead"> <i class="fa fa-comment"></i> {{ .Body }}</span>
                 <div class="pull-right">
-                    {{ .User.Name }} - {{ .CreatedAtDate }}
+                    {{.User.Name }}-{{.User.CreatedAt}}
                 </div>
             </div>
         {{ end }}
 
     </div>
-
-
-    <div class="panel panel-info">
-        <div class="panel-body">
-            <form role="form" action="/thread/post" method="post">
-                <div class="form-group">
-                    <textarea class="form-control" name="body" id="body" placeholder="Write your reply here" rows="3"></textarea>
-                    <input type="hidden" name="uuid" value="{{ .Uuid }}">
-                    <br/>
-                    <button class="btn btn-primary pull-right" type="submit">Reply</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-
-
+    {{template "footer"}}
 {{ end }}

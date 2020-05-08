@@ -14,9 +14,11 @@ type Thread struct {
 
 // format the CreatedAt date to display nicely on the screen
 func (thread *Thread) CreatedAtDate() string {
-	return thread.CreatedAt.Format("Jan 2, 2006 at 3:04pm")
+	return thread.CreatedAt.Format("2006-01-02 15:04:05")
 }
-
+func CreatedAtDate(CreatedAt time.Time) string {
+	return CreatedAt.Format("2006-01-02 15:04:05")
+}
 // get the number of posts in a thread
 func (thread *Thread) NumReplies() (count int) {
 	rows, err := Db.Query("SELECT count(*) FROM posts where thread_id = ?", thread.Id)
@@ -67,13 +69,18 @@ func Threads() (threads []Thread, err error) {
 }
 
 // Get a thread by the UUID
-func ThreadByUUID(uuid string) (conv Thread, err error) {
-	conv = Thread{}
+func ThreadByUUID(uuid string) (conv *Thread, err error) {
+	conv = &Thread{}
 	err = Db.QueryRow("SELECT id, uuid, topic, user_id, created_at FROM threads WHERE uuid = ?", uuid).
 		Scan(&conv.Id, &conv.Uuid, &conv.Topic, &conv.UserId, &conv.CreatedAt)
 	return
 }
-
+//func ThreadByPost(id int) (conv *Thread, err error) {
+//	conv = &Thread{}
+//	err = Db.QueryRow("SELECT id, uuid, topic, user_id, created_at FROM threads WHERE uuid = ?", uuid).
+//		Scan(&conv.Id, &conv.Uuid, &conv.Topic, &conv.UserId, &conv.CreatedAt)
+//	return
+//}
 // Get the user who started this thread
 func (thread *Thread) User() (user User) {
 	user = User{}

@@ -6,12 +6,17 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"log"
+	."hongbao/chitchat/config"
 )
 
 var Db *sql.DB
 
 func init() {
 	var err error
+
+	//source := fmt.Sprintf("%s:%s@(%s)/%s?charset=utf8&parseTime=true")
+	//config.Db.User, config.Db.Password,
+	//	config.Db.Address, config.Db.Database
 	Db, err = sql.Open("mysql", "root:mysqlxjl12322@163.com@tcp(152.136.43.225:3306)/chitchat?charset=utf8&parseTime=true")
 	if err != nil {
 		log.Fatal(err)

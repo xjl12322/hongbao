@@ -29,10 +29,6 @@ import (
 func Loginrequits() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		fmt.Println("中间件")
-		//url := ctx.Request.URL.Path
-		//if url == "index"{
-		//
-		//}
 		jwt := utils.JWTS
 		cookie, err := ctx.Cookie("token")
 		if err != nil {

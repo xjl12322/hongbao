@@ -11,7 +11,7 @@ type Post struct {
 }
 
 func (post *Post) CreatedAtDate() string {
-	return post.CreatedAt.Format("Jan 2, 2006 at 3:04pm")
+	return post.CreatedAt.Format("2006-01-02 15:04:05")
 }
 
 
