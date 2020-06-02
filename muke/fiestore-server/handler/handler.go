@@ -2,8 +2,8 @@ package handler
 
 import (
 	"encoding/json"
-	"fiestore-server/meta"
-	"fiestore-server/util"
+	"hongbao/muke/fiestore-server/meta"
+	"hongbao/muke/fiestore-server/util"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -11,7 +11,7 @@ import (
 	"os"
 	"strconv"
 	"time"
-	dblayer "fiestore-server/db"
+	dblayer "hongbao/muke/fiestore-server/db"
 )
 
 //文件上传

@@ -1,7 +1,7 @@
 package db
 
 import (
-	mydb"fiestore-server/db/mysql"
+	mydb"hongbao/muke/fiestore-server/db/mysql"
 	"fmt"
 )
 //用户注册

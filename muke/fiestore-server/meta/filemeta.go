@@ -3,7 +3,7 @@ package meta
 import (
 	"sort"
 )
-import mydb"fiestore-server/db"
+import mydb"hongbao/muke/fiestore-server/db"
 
 // FileMeta : 文件元信息结构
 type FileMeta struct {

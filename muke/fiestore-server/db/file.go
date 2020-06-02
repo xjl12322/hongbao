@@ -2,7 +2,7 @@ package db
 
 import (
 	"database/sql"
-	mydb"fiestore-server/db/mysql"
+	mydb"hongbao/muke/fiestore-server/db/mysql"
 	"fmt"
 )
 // OnFileUploadFinished : 文件上传完成，保存mete 到mysql
