@@ -1,7 +1,7 @@
 package main
 
 import "log"
-
+//bucket 算法
 type ConnLimiter struct {
 	concurrentConn int
 	bucket chan int
@@ -10,9 +10,11 @@ type ConnLimiter struct {
 func NewConnLimiter(cc int)*ConnLimiter  {
 	return &ConnLimiter{
 		concurrentConn:cc,
-		bucket:make(chan int,cc),
+		bucket:make(chan int,cc),  //带缓存
 	}
 }
+
+
 //留空机制
 func (cl *ConnLimiter) GetConn()bool  {
 	if len(cl.bucket) >=cl.concurrentConn{

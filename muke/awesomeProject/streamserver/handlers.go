@@ -1,22 +1,23 @@
 package main
 
 import (
+	"fmt"
 	"github.com/julienschmidt/httprouter"
+	"html/template"
 	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
-
 	"time"
 )
 
 
 
-//客户端获取播放视频
+//客户端获取播放视频 （浏览器播放视频）
 func streamHandler(w http.ResponseWriter,r *http.Request, p httprouter.Params)  {
 
-	vid := p.ByName("vid-id")
+	vid := p.ByName("vid-id")//获取视频id
 	vl := VIDEO_DIR +vid
 
 	video,err := os.Open(vl) //打开文件二进制
@@ -25,17 +26,17 @@ func streamHandler(w http.ResponseWriter,r *http.Request, p httprouter.Params)  
 		sendErrorResponse(w,http.StatusInternalServerError,"internal erro")
 		return
 	}
-	w.Header().Set("Content-Type","video/mp4") //定义播放协议头浏览器自动解析mp4
+	w.Header().Set("Content-Type","video/mp4") //定义播放协议头，浏览器自动解析mp4
 
-	http.ServeContent(w,r,"",time.Now(),video) //浏览器播放
+	http.ServeContent(w,r,"",time.Now(),video) //浏览器播放的方式
 	defer video.Close()
 
 
 }
 
-//客户端更新
+//客户端更新 （上传视频更新原有）
 func uploadHandler(w http.ResponseWriter,r *http.Request, p httprouter.Params)  {
-	r.Body = http.MaxBytesReader(w,r.Body,MAX_UPLOAD_SIZE)
+	r.Body = http.MaxBytesReader(w,r.Body,MAX_UPLOAD_SIZE)  //限定读取最大，的限制
 	if err := r.ParseMultipartForm(MAX_UPLOAD_SIZE); err!=nil{
 		sendErrorResponse(w,http.StatusBadRequest,"文件太大了")
 		return
@@ -52,6 +53,7 @@ func uploadHandler(w http.ResponseWriter,r *http.Request, p httprouter.Params)  
 	}
 
 	fn := p.ByName("vid-id")
+	fmt.Println(fn)
 	err = ioutil.WriteFile(VIDEO_DIR+fn,data,0666)
 	if err != nil{
 		log.Printf("write file error：%v",err)
@@ -59,8 +61,14 @@ func uploadHandler(w http.ResponseWriter,r *http.Request, p httprouter.Params)  
 		return
 
 	}
+
 	w.WriteHeader(http.StatusCreated)
-	io.WriteString(w,"上次文件视频成功")
+	io.WriteString(w,"上传文件视频成功")
 }
 
 
+func testPageHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	t, _ := template.ParseFiles("./videos/upload.html")
+
+	t.Execute(w, nil)
+}

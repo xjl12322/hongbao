@@ -9,7 +9,8 @@ type Runner struct {
 	Dispatcher fn
 	Executor fn
 }
-
+//1 定义常量  defs
+//2 构造函数
 func NewRuner(size int,longlived bool,d fn,e fn)*Runner  {
 	return &Runner{
 		Controller:make(chan string,1),
@@ -59,6 +60,8 @@ func (r *Runner) startDispatch()  {
 		}
 	}
 }
+
+
 
 func (r *Runner) StartAll()  {
 	r.Controller <- READY_TO_DISPATCH  //防止组赛提前预支信号

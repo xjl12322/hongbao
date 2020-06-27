@@ -3,10 +3,9 @@ package dbops
 import (
 	"log"
 )
-//从数据哭度数据那到id
+//从数据库读取要删除id
 func ReadVideoDeletionRecord(count int) ([]string, error) {
 	stmtOut, err := dbConn.Prepare("SELECT video_id FROM video_del_rec LIMIT ?")
-
 	var ids []string
 
 	if err != nil {

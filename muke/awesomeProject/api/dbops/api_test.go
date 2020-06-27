@@ -8,6 +8,8 @@ import (
 )
 
 var tempvid string
+
+
 //测试用户表crud操作
 func clearTables()  {
 	dbConn.Exec("truncate users")
@@ -25,15 +27,16 @@ func TestMain(m *testing.M)  {
 }
 func TestUserWorkFlow(t *testing.T)  {
 	t.Run("add",TestAddUser)
-	t.Run("get",TestGetUser)
-	t.Run("delete",TestDeleteUser)
-	t.Run("reget",TestRegetUser)
+	//t.Run("get",TestGetUser)
+	//t.Run("delete",TestDeleteUser)
+	//t.Run("reget",TestRegetUser)
 
 
 }
 
 func TestAddUser(t *testing.T)  {
 	err := AddUserCredential("xinjialei","123")
+
 	if err != nil{
 		t.Errorf("Error of AddUser: %v", err)
 	}

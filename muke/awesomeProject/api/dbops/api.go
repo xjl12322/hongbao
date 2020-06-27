@@ -1,23 +1,22 @@
 package dbops
 
 import (
-	"awesomeProject/api/defs"
-	"awesomeProject/api/utils"
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
+	"hongbao/muke/awesomeProject/api/defs"
+	"hongbao/muke/awesomeProject/api/utils"
 	"log"
 	"time"
 )
 
 //数据库用户users表的crud操作
-
 func AddUserCredential(loginName,pwd string)error  {
     stmtIns,err := dbConn.Prepare("INSERT INTO users (login_name,pwd) VALUES (?,?)")
 	if err != nil{
 		return err
 	}
     _,err = stmtIns.Exec(loginName,pwd)
-
+	//fmt.Println("11111")
     if err != nil{
     	return err
 	}
@@ -25,7 +24,7 @@ func AddUserCredential(loginName,pwd string)error  {
     return nil
 
 }
-
+//根据用户名获取密码
 func GetUserCredential(loginName string)(string,error)  {
 	stmtOut,err := dbConn.Prepare("select pwd from users where login_name = ?")
 	if err != nil{

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"awesomeProject/scheduler/dbops"
 	"github.com/julienschmidt/httprouter"
+	"hongbao/muke/awesomeProject/scheduler/dbops"
 	"net/http"
 )
 
@@ -20,7 +20,7 @@ func vidDelRecHandler(w http.ResponseWriter, r *http.Request, p httprouter.Param
 		return
 	}
 
-	sendResponse(w, 200, "")
+	sendResponse(w, 200, "删除成功1")
 	return
 }
 

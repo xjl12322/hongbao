@@ -1,9 +1,9 @@
 package session
 
 import (
-	"awesomeProject/api/dbops"
-	"awesomeProject/api/defs"
-	"awesomeProject/api/utils"
+	"hongbao/muke/awesomeProject/api/dbops"
+	"hongbao/muke/awesomeProject/api/defs"
+	"hongbao/muke/awesomeProject/api/utils"
 	"sync"
 	"time"
 )
@@ -15,7 +15,7 @@ var sessionMap *sync.Map
 func nowInMilli() int64 {
 	return time.Now().UnixNano()/1000000 //时间错紧缺到毫秒
 }
-
+//删除session
 func deleteExpiredSession(sid string)  {
 	sessionMap.Delete(sid)
 	dbops.DeleteSession(sid)
@@ -50,7 +50,7 @@ func GenerateNewSessionId(un string) string {
 	return id
 
 }
-
+//session 是否有效
 func IsSessionExpired(sid string) (string, bool) {
 	ss,ok := sessionMap.Load(sid)
 	if ok {
