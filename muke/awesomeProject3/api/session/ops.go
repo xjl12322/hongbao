@@ -1,66 +1,64 @@
 package session
 
 import (
-	"awesomeProject/api/dbops"
-	"awesomeProject/api/defs"
-	"awesomeProject/api/utils"
-	"sync"
 	"time"
+	"sync"
+	"video-stream-Go/api/dbops"
+	"video-stream-Go/api/defs"
+	"video-stream-Go/api/utils"
 )
 
+var sessionMap *sync.Map 
 
-
-var sessionMap *sync.Map
-
-func nowInMilli() int64 {
-	return time.Now().UnixNano()/1000000 //时间错紧缺到毫秒
+func init() {
+	sessionMap = &sync.Map{}
 }
 
-func deleteExpiredSession(sid string)  {
+func nowInMilli() int64 {
+	return time.Now().UnixNano() / 1000000
+}
+
+func deleteExpiredSession(sid string) {
 	sessionMap.Delete(sid)
 	dbops.DeleteSession(sid)
 }
 
-func init()  {
-	sessionMap = &sync.Map{}
-	
-}
-//获取全部session
-func LoadSessionsFromDB()  {
+func LoadSessionsFromDB() {
 	r, err := dbops.RetrieveAllSessions()
-	if err != nil{
+	if err != nil {
 		return
 	}
+
 	r.Range(func(k, v interface{}) bool {
 		ss := v.(*defs.SimpleSession)
-		sessionMap.Store(k,ss)
+		sessionMap.Store(k, ss)
 		return true
 	})
-
-
 }
-//创建session
-func GenerateNewSessionId(un string) string {
-	id, _ :=utils.NewUUID()
-	ct := time.Now().UnixNano()/1000000 //时间错紧缺到毫秒
-	ttl := ct+30*60*1000  //超过30分钟过期
-	ss := &defs.SimpleSession{Username:un,TTL:ttl}
-	sessionMap.Store(id,ss)
-	dbops.InsertSession(id,ttl,un)
-	return id
 
+func GenerateNewSessionId(username string) string {
+	id, _ := utils.NewUUID()
+	ct := nowInMilli()
+	ttl := ct + 30 * 60 * 1000 // Server-side session valid time: 30 min
+
+	ss := &defs.SimpleSession{Username: username, TTL: ttl}
+	sessionMap.Store(id, ss)
+	dbops.InsertSession(id, ttl, username)
+
+	return id
 }
 
 func IsSessionExpired(sid string) (string, bool) {
-	ss,ok := sessionMap.Load(sid)
+	ss, ok := sessionMap.Load(sid)
 	if ok {
 		ct := nowInMilli()
-		if ss.(*defs.SimpleSession).TTL <ct{
-			deleteExpiredSession(sid)  //没有过期
-			return "",true
+		if ss.(*defs.SimpleSession).TTL < ct {
+			deleteExpiredSession(sid)
+			return "", true
 		}
-		return ss.(*defs.SimpleSession).Username,false
-	}
-	return "",true
-}
 
+		return ss.(*defs.SimpleSession).Username, false
+	}
+
+	return "", true
+}

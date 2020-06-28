@@ -1,74 +1,70 @@
 package dbops
 
 import (
-	"fmt"
-	"strconv"
 	"testing"
+	"strconv"
 	"time"
+	"fmt"
 )
 
+
 var tempvid string
-//测试用户表crud操作
-func clearTables()  {
+
+func clearTables() {
 	dbConn.Exec("truncate users")
 	dbConn.Exec("truncate video_info")
 	dbConn.Exec("truncate comments")
 	dbConn.Exec("truncate sessions")
-
 }
 
-
-func TestMain(m *testing.M)  {
+func TestMain(m *testing.M) {
 	clearTables()
 	m.Run()
 	clearTables()
 }
-func TestUserWorkFlow(t *testing.T)  {
-	t.Run("add",TestAddUser)
-	t.Run("get",TestGetUser)
-	t.Run("delete",TestDeleteUser)
-	t.Run("reget",TestRegetUser)
 
-
+func TestUserWorkFlow(t *testing.T) {
+	t.Run("Add", testAddUser)
+	t.Run("Get", testGetUser)
+	t.Run("Del", testDeleteUser)
+	t.Run("Reget", testRegetUser)
 }
 
-func TestAddUser(t *testing.T)  {
-	err := AddUserCredential("xinjialei","123")
-	if err != nil{
+func testAddUser(t *testing.T) {
+	err := AddUserCredential("avenssi", "123")
+	if err != nil {
 		t.Errorf("Error of AddUser: %v", err)
 	}
 }
-func TestGetUser(t *testing.T)  {
-	pwd,err := GetUserCredential("xinjialei")
-	if err != nil || pwd != "123"{
-		t.Errorf("Error of GetUser:%v",err)
-	}
 
+func testGetUser(t *testing.T) {
+	pwd, err := GetUserCredential("avenssi")
+	if pwd != "123" || err != nil {
+		t.Errorf("Error of GetUser")
+	}
 }
-func TestDeleteUser(t *testing.T)  {
-	err := DeleteUser("xinjialei","123")
-	if err != nil{
+
+func testDeleteUser(t *testing.T) {
+	err := DeleteUser("avenssi", "123")
+	if err != nil {
 		t.Errorf("Error of DeleteUser: %v", err)
 	}
-
 }
-func TestRegetUser(t *testing.T)  {
-	pwd,err := GetUserCredential("xinjialei")
-	if err != nil{
+
+func testRegetUser(t *testing.T) {
+	pwd, err := GetUserCredential("avenssi")
+	if err != nil {
 		t.Errorf("Error of RegetUser: %v", err)
 	}
-	if pwd != ""{
-		t.Errorf("deleteing user test fail")
+
+	if pwd != "" {
+		t.Errorf("Deleting user test failed")
 	}
 }
-
-
-
-//测试视频资源crud操作
 
 func TestVideoWorkFlow(t *testing.T) {
 	clearTables()
-	t.Run("PrepareUser", TestAddUser)
+	t.Run("PrepareUser", testAddUser)
 	t.Run("AddVideo", testAddVideoInfo)
 	t.Run("GetVideo", testGetVideoInfo)
 	t.Run("DelVideo", testDeleteVideoInfo)
@@ -104,11 +100,9 @@ func testRegetVideoInfo(t *testing.T) {
 	}
 }
 
-//评论测试
-
 func TestComments(t *testing.T) {
 	clearTables()
-	t.Run("AddUser", TestAddUser)
+	t.Run("AddUser", testAddUser)
 	t.Run("AddCommnets", testAddComments)
 	t.Run("ListComments", testListComments)
 }
@@ -138,10 +132,4 @@ func testListComments(t *testing.T) {
 	for i, ele := range res {
 		fmt.Printf("comment: %d, %v \n", i, ele)
 	}
-}
-
-
-
-
-
-
+}	

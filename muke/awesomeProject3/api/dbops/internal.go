@@ -1,17 +1,13 @@
 package dbops
 
 import (
-	"awesomeProject/api/defs"
-	"database/sql"
-	"log"
 	"strconv"
 	"sync"
+	"log"
+	"database/sql"
+	"video-stream-Go/api/defs"
 )
 
-//session 相关
-
-
-//写入session
 func InsertSession(sid string, ttl int64, uname string) error {
 	ttlstr := strconv.FormatInt(ttl, 10)
 	stmtIns, err := dbConn.Prepare("INSERT INTO sessions (session_id, TTL, login_name) VALUES (?, ?, ?)")
@@ -28,10 +24,6 @@ func InsertSession(sid string, ttl int64, uname string) error {
 	return nil
 }
 
-
-
-
-//获取session
 func RetrieveSession(sid string) (*defs.SimpleSession, error) {
 	ss := &defs.SimpleSession{}
 	stmtOut, err := dbConn.Prepare("SELECT TTL, login_name FROM sessions WHERE session_id=?")
@@ -57,7 +49,6 @@ func RetrieveSession(sid string) (*defs.SimpleSession, error) {
 	return ss, nil
 }
 
-//获取全部session  list
 func RetrieveAllSessions() (*sync.Map, error) {
 	m := &sync.Map{}
 	stmtOut, err := dbConn.Prepare("SELECT * FROM sessions")
@@ -76,24 +67,23 @@ func RetrieveAllSessions() (*sync.Map, error) {
 		var id string
 		var ttlstr string
 		var login_name string
-		if er := rows.Scan(&id, &ttlstr, &login_name); er != nil {
-			log.Printf("retrive sessions error: %s", er)
-			break
-		}
+        if er := rows.Scan(&id, &ttlstr, &login_name); er != nil {
+        	log.Printf("retrive sessions error: %s", er)
+        	break
+        }
 
-		if ttl, err1 := strconv.ParseInt(ttlstr, 10, 64); err1 == nil{
-			ss := &defs.SimpleSession{Username: login_name, TTL: ttl}
-			m.Store(id, ss)
-			log.Printf(" session id: %s, ttl: %d", id, ss.TTL)
-		}
+        if ttl, err1 := strconv.ParseInt(ttlstr, 10, 64); err1 == nil{
+        	ss := &defs.SimpleSession{Username: login_name, TTL: ttl}
+        	m.Store(id, ss)
+        	log.Printf(" session id: %s, ttl: %d", id, ss.TTL)
+        }
 
+        
+    }
 
-	}
-
-	return m, nil
+    return m, nil
 }
 
-//删除session
 func DeleteSession(sid string) error {
 	stmtOut, err := dbConn.Prepare("DELETE FROM sessions WHERE session_id = ?")
 	if err != nil {
@@ -107,11 +97,4 @@ func DeleteSession(sid string) error {
 
 	return nil
 }
-
-
-
-
-
-
-
 

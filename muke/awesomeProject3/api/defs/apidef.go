@@ -1,33 +1,35 @@
 package defs
 
-//model 表结构
-type UserCreadential struct {
+// requests
+type UserCredential struct {
 	Username string `json:"user_name"`
-	Pwd string `json:"pwd"`
-
+	Pwd      string `json:"pwd"`
 }
-//response
+
+// response
 type SignedUp struct {
-	Success bool `json:"success"`
+	Success   bool `json:"success"`
 	SessionId string `json:"session_id"`
 }
-type VideoInfo struct {
-	Id string
-	AuthorId int
-	Name string
-	DisplayCtime string
 
+// Data model
+type VideoInfo struct {
+	Id           string
+	AuthorId     int
+	Name         string
+	DisplayCtime string
 }
 
+// Comment
 type Comment struct {
-	Id string
+	Id      string
 	VideoId string
-	Author string
+	Author  string
 	Content string
 }
 
-//session 相关
+// Session
 type SimpleSession struct {
-	Username string //login name
-	TTL int64
+	Username string // login name
+	TTL      int64
 }

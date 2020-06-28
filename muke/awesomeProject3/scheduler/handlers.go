@@ -1,9 +1,9 @@
-package main
+package main 
 
 import (
-	"awesomeProject/scheduler/dbops"
-	"github.com/julienschmidt/httprouter"
 	"net/http"
+	"github.com/julienschmidt/httprouter"
+	"github.com/avenssi/video_server/scheduler/dbops"
 )
 
 func vidDelRecHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params){
@@ -11,7 +11,7 @@ func vidDelRecHandler(w http.ResponseWriter, r *http.Request, p httprouter.Param
 
 	if len(vid) == 0 {
 		sendResponse(w, 400, "video id should not be empty")
-		return
+		return 
 	}
 
 	err := dbops.AddVideoDeletionRecord(vid)
@@ -23,4 +23,3 @@ func vidDelRecHandler(w http.ResponseWriter, r *http.Request, p httprouter.Param
 	sendResponse(w, 200, "")
 	return
 }
-

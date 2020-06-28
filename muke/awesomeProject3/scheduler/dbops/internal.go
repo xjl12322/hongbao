@@ -2,8 +2,9 @@ package dbops
 
 import (
 	"log"
+	_ "github.com/go-sql-driver/mysql"
 )
-//从数据哭度数据那到id
+
 func ReadVideoDeletionRecord(count int) ([]string, error) {
 	stmtOut, err := dbConn.Prepare("SELECT video_id FROM video_del_rec LIMIT ?")
 
@@ -32,7 +33,6 @@ func ReadVideoDeletionRecord(count int) ([]string, error) {
 	return ids, nil
 }
 
-//把拿到的id删除
 func DelVideoDeletionRecord(vid string) error {
 	stmtDel, err := dbConn.Prepare("DELETE FROM video_del_rec WHERE video_id=?")
 	if err != nil {
@@ -48,6 +48,8 @@ func DelVideoDeletionRecord(vid string) error {
 	defer stmtDel.Close()
 	return nil
 }
+
+
 
 
 

@@ -1,30 +1,21 @@
-package main
+package main 
 
 import (
-	"awesomeProject/scheduler/taskrunner"
-	"fmt"
-	"github.com/julienschmidt/httprouter"
 	"net/http"
+	"github.com/julienschmidt/httprouter"
+	"github.com/avenssi/video_server/scheduler/taskrunner"
 )
 
-func RegisterHandlers()*httprouter.Router  {
-
+func RegisterHandlers() *httprouter.Router {
 	router := httprouter.New()
 
 	router.GET("/video-delete-record/:vid-id", vidDelRecHandler)
 
 	return router
-
 }
-func main()  {
-	fmt.Println("sta")
+
+func main() {
 	go taskrunner.Start()
 	r := RegisterHandlers()
 	http.ListenAndServe(":9001", r)
-
-
 }
-
-
-
-

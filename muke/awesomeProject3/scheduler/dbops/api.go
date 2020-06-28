@@ -1,9 +1,11 @@
 package dbops
 
-import "log"
+import (
+	"log"
+	_ "github.com/go-sql-driver/mysql"
+)
 
 func AddVideoDeletionRecord(vid string) error {
-
 	stmtIns, err := dbConn.Prepare("INSERT INTO video_del_rec (video_id) VALUES(?)")
 	if err != nil {
 		return err
@@ -17,9 +19,4 @@ func AddVideoDeletionRecord(vid string) error {
 
 	defer stmtIns.Close()
 	return nil
-
-
 }
-
-
-

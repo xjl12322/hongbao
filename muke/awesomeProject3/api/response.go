@@ -1,25 +1,20 @@
-package main
+package main 
 
 import (
-	"awesomeProject/api/defs"
-	"encoding/json"
 	"io"
+	"encoding/json"
 	"net/http"
+	"video-stream-Go/api/defs"
 )
 
-func sendErrorResponse(w http.ResponseWriter,errResp defs.ErrResponse )  {
-
+func sendErrorResponse(w http.ResponseWriter, errResp defs.ErrResponse) {
 	w.WriteHeader(errResp.HttpSC)
-	resStr,_ := json.Marshal(&errResp.Error)
-	io.WriteString(w,string(resStr))
 
+	resStr, _ := json.Marshal(&errResp.Error)
+	io.WriteString(w, string(resStr))
 }
 
-func sendNormalResponse(w http.ResponseWriter,resp string,sc int)  {
-
+func sendNormalResponse(w http.ResponseWriter, resp string, sc int) {
 	w.WriteHeader(sc)
-	io.WriteString(w,resp)
-
+	io.WriteString(w, resp)
 }
-
-
