@@ -28,6 +28,11 @@ func RegisterHandlers() *gin.Engine  {
 	//router:= httprouter.New()
 	router.POST("/user" ,CreateUser)
 	router.POST("/user/:user_name",validateUserSession(), Login)
+
+
+
+
+
 	return router
 }
 
